@@ -6,8 +6,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { TokensModule } from '../tokens/tokens.module';
 import { KafkaClientModule } from '../kafka-client/kafka-client.module';
 
-const testSecret = 'test-jwt-secret';
-
 @Module({
   controllers: [AuthController],
   providers: [AuthService],
@@ -16,7 +14,7 @@ const testSecret = 'test-jwt-secret';
     KafkaClientModule,
     JwtModule.register({
       global: true,
-      secret: testSecret,
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
   ],
